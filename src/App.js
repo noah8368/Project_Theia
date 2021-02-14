@@ -1,0 +1,26 @@
+import React from 'react';
+import "./App.css";
+
+import {Route, Switch,  BrowserRouter as Router, Link, Redirect} from 'react-router-dom';
+
+
+//pages
+import MainPage from "./pages"
+import NotFoundPage from "./pages/404"
+import Home from './pages/Home.js';
+class App extends React.Component {
+    render() {
+        return (
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={MainPage}/>
+                    <Route exact path="/404" component={NotFoundPage}/>
+                    <Route exact path="/Home" component={Home}/>
+                    <Redirect to = "/404"/>
+                </Switch>
+            </Router>
+        );
+    }
+};
+
+export default App;
