@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
 
-
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .stockButton{
     font-family: 'Space Grotesk', sans-serif;

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css';
 import beach from '../components/beach.jpg';
+import mag from '../components/magnifying.png';
 
 
 class Home extends React.Component {
@@ -35,11 +36,12 @@ class Home extends React.Component {
   
     render() {
       return (
-            <div> 
+            <div class="mainPage"> 
                 <h1> 
                     Enter a link and location to view
                 </h1>
                 <form onSubmit={this.handleSubmit}>
+                        <div class="options">
                         <input
                         name="link" 
                         type="text" 
@@ -55,7 +57,8 @@ class Home extends React.Component {
                         <option location="Los Angeles, USA">Los Angeles, USA</option>
                         <option location="Perth, AU">Perth, AU</option>
                         </select>
-                    <br />
+                    
+                    {/* <br />
                     <label class="favorite">
                         Favorite
                         <input
@@ -63,11 +66,22 @@ class Home extends React.Component {
                             type="checkbox"
                             checked={this.state.isFavorite}
                             onChange={this.handleChange} />
+                    </label> */}
+                    </div>
+                    <div class="sub">
+                        <input type="submit" value="submit"/>
+                    </div>
+                    <label class="favorite">
+                        Add to Favorites?
+                        <input
+                            name="isFavorite"
+                            type="checkbox"
+                            checked={this.state.isFavorite}
+                            onChange={this.handleChange} />
                     </label>
-                    <input type="submit" value="submit" />
                 </form>
-                <div> 
-                    { (this.state.showImage) ? <img src={beach} alt={"image"} /> : null} 
+                <div class="screenshot"> 
+                    { (this.state.showImage) ? <img src={beach} alt={"image"} /> : null } 
                 </div> 
         </div>
       );
