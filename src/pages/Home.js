@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 import {Link} from 'react-router-dom';
 import beach from '../components/beach.jpg';
+import axios from "axios";
 
 
 class LinkPair extends React.Component { 
@@ -42,7 +43,9 @@ class Home extends React.Component {
         isFavorite: false, 
         showImage: false, 
         compare: false,
-        usrname: "julia", //usrname and favorites temporarily hard coded
+        errors: null,
+        isLoading: true,
+        usrname: "example", //usrname and favorites temporarily hard coded
         favorites: ["piazza.com", "googe.com", "apple.com", "ccle.edu", "ucla.edu",
         "amazon.com", "facebook.com", "instagram.com", "github.com", "julia"]
     }
@@ -54,7 +57,25 @@ class Home extends React.Component {
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
     }
-  
+    
+    getData(){
+        axios
+
+            .get("https://randomuser.me/api/")
+            .then(response=>{
+                this.setState({
+                    usrname:response.data.results[0].name.first,
+                    isLoading: false,
+                });
+            })
+            .catch(error=>this.setState({error, isLoading: false}));  
+            
+    }
+
+    componentDidMount(){
+        this.getData()
+    }
+
     handleChange(event) { //updates state whenever user gives new input/value to something 
         const target = event.target;
         const name = target.name;
@@ -106,7 +127,7 @@ class Home extends React.Component {
             isFavorite: this.state.isFavorite,
             showImage: this.state.showImage,
             compare: this.state.checked,
-            usr: this.state.usr,
+            usrname: this.state.usrname,
             favorites: this.state.favorites,
         });
     }
@@ -185,7 +206,7 @@ class Home extends React.Component {
         <div class="all"> 
             <div class="topBar">     
                 <p id="name">
-                    {this.state.usrname}
+                    {!this.state.isLoading ? this.state.usrname : "Loading..."}
                 </p>
                 <Link to = "/" class="signout">
                     <button  type="button" class="logout">
@@ -213,6 +234,7 @@ class Home extends React.Component {
                 <h1> 
                     Enter a link and location to view
                 </h1>
+                
                 <form onSubmit={this.handleSubmit}>
                         <div class="options">
                             <input
