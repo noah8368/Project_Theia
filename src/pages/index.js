@@ -6,11 +6,12 @@ const MainPage = () => {
 
     return(
         <div>
-        <h1>Stock Login Page</h1>            
+        <h1>Stock Login Page</h1>
+            
             <Link to = "/Home">
-           	 <button className="stockButton" type="button">
-           	     Go to Home
-          	  </button>
+            <button className="stockButton" type="button">
+                Go to Home
+            </button>
             </Link>
         </div>
 
