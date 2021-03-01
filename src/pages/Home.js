@@ -19,7 +19,6 @@ class LinkPair extends React.Component {
         temorarily hard coded
         */
         return (
-<<<<<<< HEAD
         <div class="images">
             { ((this.props.compare) ?
                      <div class="sideBySide">
@@ -30,16 +29,6 @@ class LinkPair extends React.Component {
                    <div class="single">
                     <img id="single" src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} /> 
                   </div>
-=======
-        <div>
-            { ((this.props.compare) ?
-                     <div class="sideBySide">
-                        <img src={beach} alt={"image"} id="orig"/> 
-                        <img src={beach} alt={"image"} id="new"/>
-                    </div> 
-                : 
-                    <img id="single" src={beach} alt={"image"} /> 
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
             ) } 
         </div>
         )
@@ -66,6 +55,7 @@ class Home extends React.Component {
       this.removeFavorite = this.removeFavorite.bind(this); 
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
+      
     }
   
     handleChange(event) { //updates state whenever user gives new input/value to something 
@@ -98,7 +88,6 @@ class Home extends React.Component {
             usrname: this.state.usrname,
             favorites: this.state.favorites,
         });
-<<<<<<< HEAD
     }
 
     onChangeComp(event) { // toggles compare state when checked/unchecked
@@ -125,34 +114,6 @@ class Home extends React.Component {
         });
     }
 
-=======
-    }
-
-    onChangeComp(event) { // toggles compare state when checked/unchecked
-        this.setState({
-            link: this.state.link,
-            location: this.state.location,
-            isFavorite: this.state.isFavorite,
-            showImage: this.state.showImage,
-            compare: event.target.checked,
-            usr: this.state.usr,
-            favorites: this.state.favorites,
-        });
-    }
-
-    onChangeLink(event) { //sets link when inputted 
-        this.setState({
-            link: event.target.value,
-            location: this.state.location,
-            isFavorite: this.state.isFavorite,
-            showImage: this.state.showImage,
-            compare: this.state.checked,
-            usr: this.state.usr,
-            favorites: this.state.favorites,
-        });
-    }
-
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
 
     removeFavorite(link) { //removes favorite, button for this not yet implemented
         let favoritesCopy = this.state.favorites;
@@ -218,12 +179,16 @@ class Home extends React.Component {
        const favorites = this.state.favorites; 
        const getFavorites = favorites.map((value) => { //list of favorites as buttons
         return (
-          <li >
+          <li>
+              <div class="favslist">
             <button onClick={(evt) => this.selectFav(value)}>{value}</button> 
+            <div class="delete">
+            <button onClick={(evt) => this.removeFavorite(value)}>Delete</button>
+            </div>
+            </div>
           </li>
         );
       });
-<<<<<<< HEAD
 
 
       const openInNewTab = (url) => {
@@ -232,8 +197,6 @@ class Home extends React.Component {
       }
 
       
-=======
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
       return (
         <div class="all"> 
             <div class="topBar">     
@@ -257,11 +220,7 @@ class Home extends React.Component {
                     <button className="download">
                         Download
                     </button>
-<<<<<<< HEAD
                     <button className="fullscreen" onClick={() => openInNewTab('https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg')}>
-=======
-                    <button className="fullscreen">
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
                         Fullscreen
                     </button>
               </div>
@@ -288,10 +247,7 @@ class Home extends React.Component {
                                 <option location="Perth, AU">Perth, AU</option>
                             </select>
                         </div>
-<<<<<<< HEAD
                     
-=======
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
                     <div class="sub">
                         <input type="submit" value="submit"/>
                     </div>
@@ -302,7 +258,6 @@ class Home extends React.Component {
                             type="checkbox"
                             checked={this.state.isFavorite}
                             onChange={this.onChangeFav} />
-<<<<<<< HEAD
                     </label>
                     
                     <label class="switch">
@@ -315,18 +270,6 @@ class Home extends React.Component {
                         <span class="slider round"></span>
                     </label>
                     
-=======
-                    </label>
-                    <label class="switch">
-                        <input 
-                            name="compare"
-                            type="checkbox"
-                            checked={this.state.compare}
-                            onChange={this.onChangeComp}
-                        />
-                        <span class="slider round"></span>
-                    </label>
->>>>>>> ceba585f06b4e92827dcd748f5e2f23338f41f8b
                 </form>   
                 <div class="screenshot">
                     { (this.state.showImage)  ?
