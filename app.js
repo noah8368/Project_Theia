@@ -6,6 +6,9 @@ var express = require("express"),
     passportLocalMongoose =
         require("passport-local-mongoose"),
     User = require("./models/user");
+    router=express.Router();
+
+
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -29,6 +32,17 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+var cors = require('cors');
+app.use(cors());
+// stuff for cors problems
+router.use(function (req, res, next) {
+    //Enabling CORS
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+    next();
+    });
 
 //=====================
 // ROUTES
@@ -98,8 +112,10 @@ app.get('/:username', (req, res) => {
         else {
             res.send({
                 username: user.username,
+                favorites: user.favorites,
             });
-            console.log(user.username + " " + user.password);
+            //console.log(user.username + " " + user.password + " " + user.favorites);
+            console.log(user);
         }
     })
 });
