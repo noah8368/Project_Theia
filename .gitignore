@@ -1,2 +1,3 @@
-node_modules
-
+# Don't track the following
+.DS_Store
+node_modules/
