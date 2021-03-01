@@ -17,28 +17,37 @@ body {
     font-family: 'Space Grotesk', sans-serif;
 }
 
+.all {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .space {
   display: flex;
   justify-items: center;
   min-width: 100vw;
-  min-height: 94vh;
+  max-height: 94vh;
 }
 
 .navBar {
   background-color: black;
   color: white;
   min-width: 9.7%;
-  border-right: solid white;
-  border-right-width: 0.3%;
-  min-height: 100%;
+  border: solid white;
+  border-radius: 15px;
+  border-width: 0.3%;
+  height: 97%;
   padding: 5px;
 }
 
 .topBar {
-  border-bottom: solid white;
-  border-bottom-width: 0.5vh;
-  min-width: 100%;
-  height: 5.5vh;
+  border: solid white;
+  border-radius: 15px;
+  margin: 5px;
+  border-width: 0.5vh;
+  width: 98%;
+  background-position: center;;
+  height: 4vh;
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -72,6 +81,14 @@ ul {
 height:200px; 
 overflow:hidden; 
 overflow-y:scroll;
+}
+
+
+
+.favs button {
+  background-color: rgba(20,20,20,0.4);
+  color: white;
+  border: none;
 }
 
 .mainPage {
@@ -113,7 +130,7 @@ h1 {
 }
 
 form {
-    width: 100%;
+    width: 50%;
     height: 30%;
     display: flex;
     flex-direction: column;
@@ -144,26 +161,45 @@ form {
     display: block;
     float: below;
     font-weight: bold;
+    padding: 5px;
+    border: solid;
+    border-color: white;
   }
 
 .screenshot {
-    display: flex;
+    
     order: 0;
-    max-width: 100%;
-    width: 600px;
-    height: 300px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 768px;
+    height: 432px;
     background-color:rgba(20,20,20,0.4);
 }
+
+.screenshot img {
+
+ max-width: 700px;
+ max-height: 300px;
+}
   
-.screenshot #single {
-    min-width: 100%;
-    min-height: 100%;
+.images {
+  max-width: 700px;
+  object-fit: contain;
+    
+}
+
+.single {
+  max-width: 700px;
+  object-fit: contain;
 }
 
 .sideBySide img {
-  flex-shrink: 1;
-  max-width: 49%;
-  min-height: 100%;
+  margin: 4px;
+  object-fit: contain;
+  flex-shrink: -8;
+  max-width: 300px;
+  max-height: 100%;
 }
 
 
@@ -205,7 +241,7 @@ form {
   position: relative;
   display: inline-block;
   width: 50px;
-  height: 30px;
+  max-height: 30px;
 }
 
 /* Hide default HTML checkbox */

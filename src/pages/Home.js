@@ -20,14 +20,16 @@ class LinkPair extends React.Component {
         temorarily hard coded
         */
         return (
-        <div>
+        <div class="images">
             { ((this.props.compare) ?
                      <div class="sideBySide">
-                        <img src={beach} alt={"image"} id="orig"/> 
-                        <img src={beach} alt={"image"} id="new"/>
+                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="orig"/> 
+                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="new"/>
                     </div> 
                 : 
-                    <img id="single" src={beach} alt={"image"} /> 
+                   <div class="single">
+                    <img id="single" src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} /> 
+                  </div>
             ) } 
         </div>
         )
@@ -46,8 +48,7 @@ class Home extends React.Component {
         errors: null,
         isLoading: true,
         usrname: "example", //usrname and favorites temporarily hard coded
-        favorites: ["piazza.com", "googe.com", "apple.com", "ccle.edu", "ucla.edu",
-        "amazon.com", "facebook.com", "instagram.com", "github.com", "julia"]
+        favorites: ["Loading..."]
     }
       this.handleChange = this.handleChange.bind(this); //**TODO: clean up handle/on change functions
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,12 +62,14 @@ class Home extends React.Component {
     getData(){
         axios
 
-            .get("https://randomuser.me/api/")
+            .get("http://localhost:8000/noah")
             .then(response=>{
-                this.setState({
-                    usrname:response.data.results[0].name.first,
-                    isLoading: false,
-                });
+                console.log(response);
+                    this.setState({
+                        usrname: response.data.username,
+                        isLoading: false,
+                        favorites: [response.data.favorites],
+                    });
             })
             .catch(error=>this.setState({error, isLoading: false}));  
             
@@ -163,7 +166,6 @@ class Home extends React.Component {
             compare: this.state.compare,
             favorites: favoritesCopy,
         });
-        console.log(this.state);
         event.preventDefault();
     }
   
@@ -194,7 +196,8 @@ class Home extends React.Component {
         screenshot class: displays image, 1 if comparison is off, 2 images if on
                           currently hardcoded image from beach.jpg, to be changed
         */
-       const favorites = this.state.favorites; 
+       
+       const favorites = this.state.favorites;
        const getFavorites = favorites.map((value) => { //list of favorites as buttons
         return (
           <li >
@@ -202,6 +205,10 @@ class Home extends React.Component {
           </li>
         );
       });
+      const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+      }
       return (
         <div class="all"> 
             <div class="topBar">     
@@ -225,8 +232,7 @@ class Home extends React.Component {
                     <button className="download">
                         Download
                     </button>
-                    <button className="fullscreen">
-                        Fullscreen
+                    <button className="fullscreen" onClick={() => openInNewTab('https://preview.redd.it/lfndtoirttvx.jpg?auto=webp&s=62fd5e471e310793ae18fc7573b649c134b23e92')}>
                     </button>
               </div>
               
