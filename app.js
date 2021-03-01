@@ -85,12 +85,31 @@ app.get("/logout", function (req, res) {
     res.redirect("/");
 });
 
+//displaying profile
+app.get('/:username', (req, res) => {
+    User.findOne({username: req.params.username}).
+    then((user) => {
+        if (!user) {
+            res.send({
+                msg: "User not found!"
+            });
+            return {msg: "No user with this username was found."}
+        }
+        else {
+            res.send({
+                username: user.username,
+            });
+            console.log(user.username + " " + user.password);
+        }
+    })
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/login");
 }
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8000;
 app.listen(port, function () {
     console.log("Server Has Started!");
 });
