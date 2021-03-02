@@ -1,40 +1,70 @@
 import argparse
 from datetime import datetime
+from pathlib import Path
 import os
-from selenium import webdriver
+from selenium.webdriver import Chrome, ChromeOptions
+import validators
 import socket
 import re
 import time
 from urllib.parse import urlparse
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 class WebRecorder:
     def __init__(self, args):
-        self.driver = webdriver.Firefox()
-        self.url = args.url
+        if (validators.url(args.url)):
+            self.url = args.url
+        else:
+            raise ValueError("Given url \""+args.url+"\" is invalid")
+
         self.timing_load = args.load_time
         self.showing_ip = args.IP_address
         self.loc = args.location
-        default_path = os.path.join(os.getcwd(), "screenshots")
-        self.path = args.file_path if (args.file_path) else default_path
-    def takeScreenshot(self):
-        print("Loading", self.url + "...")
-        start_load_time = time.time()
-        self.driver.get(self.url)
-        end_load_time = time.time()
-        pause_time = 1
-        time.sleep(pause_time)
 
+        default_path = os.fspath(Path.cwd().parent / "screenshots")
+        self.path = args.file_path if (args.file_path) else default_path
+
+        self.lat = 52.520007
+        self.long = 13.404954
+        self.acc = 100
+    def takeScreenshot(self):
+        hostname = urlparse(self.url).hostname
         now = datetime.now()
         date_str = now.strftime("%Y-%m-%d_%H:%M:%S")
-        hostname = urlparse(self.url).hostname
-        file_name = hostname+'_'+date_str+".png"
-        file_name = os.path.join(self.path, file_name)
+        img_dir = Path(self.path)
+        img_file = hostname+'_'+date_str+".png"
+        img_path = os.fspath(img_dir / img_file)
 
-        self.driver.get_screenshot_as_file(file_name)
-        self.driver.quit()
+        print("Loading", self.url + "...")
+        driver = Chrome()
+        driver.maximize_window()
+        driver.execute_cdp_cmd(
+            "Emulation.setGeolocationOverride",
+            {
+                "latitude": self.lat,
+                "longitude": self.long,
+                "accuracy": 100,
+            },
+        )
+        driver.execute_cdp_cmd(
+            "Browser.grantPermissions",
+            {
+                "permissions": ["geolocation"]
+            },
+        )
+        start_load_time = time.time()
+        driver.get(self.url)
+        end_load_time = time.time()
+        driver.refresh()
+        time.sleep(3)
+        driver.get_screenshot_as_file(img_path)
+        driver.quit()
 
         print("Visited from", self.loc)
-        print("Saved view to", file_name)
+        print("Saved view to", img_path)
 
         if self.timing_load:
             exec_time = round(end_load_time - start_load_time, 2)
@@ -47,7 +77,6 @@ class WebRecorder:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="URL of site to be visited")
-    parser.add_argument("location", help="physical location to visit URL from")
     parser.add_argument("-f", "--file-path",
                         help="Save screenshot of given site to a specified path")
     parser.add_argument("-t", "--load-time",
@@ -58,5 +87,9 @@ if __name__ == "__main__":
                         action="store_true")
     args = parser.parse_args()
 
-    site_manager = WebRecorder(args)
-    site_manager.takeScreenshot()
+    try:
+        site_manager = WebRecorder(args)
+        site_manager.takeScreenshot()
+    except ValueError as e:
+        error_msg = e.args[0]
+        print("Error:", str(error_msg))
