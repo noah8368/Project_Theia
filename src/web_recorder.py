@@ -22,13 +22,12 @@ class WebRecorder:
 
         self.timing_load = args.load_time
         self.showing_ip = args.IP_address
-        self.loc = args.location
 
         default_path = os.fspath(Path.cwd().parent / "screenshots")
         self.path = args.file_path if (args.file_path) else default_path
 
-        self.lat = 52.520007
-        self.long = 13.404954
+        self.lat = args.latitude
+        self.long = args.longitude
         self.acc = 100
     def takeScreenshot(self):
         hostname = urlparse(self.url).hostname
@@ -38,8 +37,9 @@ class WebRecorder:
         img_file = hostname+'_'+date_str+".png"
         img_path = os.fspath(img_dir / img_file)
 
-        print("Loading", self.url + "...")
-        driver = Chrome()
+        chromeOpt = ChromeOptions()
+        chromeOpt.add_argument("--headless")
+        driver = Chrome(options=chromeOpt)
         driver.maximize_window()
         driver.execute_cdp_cmd(
             "Emulation.setGeolocationOverride",
@@ -55,6 +55,8 @@ class WebRecorder:
                 "permissions": ["geolocation"]
             },
         )
+
+        print("Loading", self.url + "...")
         start_load_time = time.time()
         driver.get(self.url)
         end_load_time = time.time()
@@ -63,13 +65,11 @@ class WebRecorder:
         driver.get_screenshot_as_file(img_path)
         driver.quit()
 
-        print("Visited from", self.loc)
+        print("Location: ("+str(self.lat)+", "+str(self.long)+')')
         print("Saved view to", img_path)
-
         if self.timing_load:
             exec_time = round(end_load_time - start_load_time, 2)
             print("Load time:", str(exec_time) + 's')
-
         if self.showing_ip:
             ip = socket.gethostbyname(hostname)
             print("IP Address:", ip)
@@ -77,6 +77,10 @@ class WebRecorder:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("url", help="URL of site to be visited")
+    parser.add_argument("latitude", help="latitude of spoofed location",
+                        type=float)
+    parser.add_argument("longitude", help="longitude of spoofed location",
+                        type=float)
     parser.add_argument("-f", "--file-path",
                         help="Save screenshot of given site to a specified path")
     parser.add_argument("-t", "--load-time",
