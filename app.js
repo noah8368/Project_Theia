@@ -114,7 +114,6 @@ app.get('/:username', (req, res) => {
                 username: user.username,
                 favorites: user.favorites,
             });
-            //console.log(user.username + " " + user.password + " " + user.favorites);
             console.log(user);
         }
     })
