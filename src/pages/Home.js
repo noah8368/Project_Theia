@@ -62,21 +62,30 @@ class Home extends React.Component {
     getData(){
         axios
 
-            .get("http://localhost:8000/noah")
+            .get("http://localhost:8000/".concat(this.props.location.state[0].username)) //taking input from login Page
             .then(response=>{
                 console.log(response);
                     this.setState({
                         usrname: response.data.username,
                         isLoading: false,
-                        favorites: [response.data.favorites],
+                        favorites: response.data.favorites,
                     });
             })
             .catch(error=>this.setState({error, isLoading: false}));  
             
     }
 
+    postData(list){
+        const user={username: this.state.usrname, favorites: list};
+        console.log(user);
+        axios.post("http://localhost:8000/push",user)
+            .then(response=>console.log(response));
+    }
+
     componentDidMount(){
+        
         this.getData()
+
     }
 
     handleChange(event) { //updates state whenever user gives new input/value to something 
@@ -157,6 +166,7 @@ class Home extends React.Component {
         const favoritesCopy  = this.state.favorites;
         if(this.state.isFavorite) {
             favoritesCopy.push(this.state.link); //add entered link to favorites
+            this.postData(this.state.favorites);
         }
         this.setState({
             link: this.state.link,
@@ -200,9 +210,14 @@ class Home extends React.Component {
        const favorites = this.state.favorites;
        const getFavorites = favorites.map((value) => { //list of favorites as buttons
         return (
-          <li >
-            <button onClick={(evt) => this.selectFav(value)}>{value}</button> 
-          </li>
+            <li>
+            <div class="favslist">
+          <button onClick={(evt) => this.selectFav(value)}>{value}</button> 
+          <div class="delete">
+          <button onClick={(evt) => this.removeFavorite(value)}>Delete</button>
+          </div>
+          </div>
+        </li>
         );
       });
       const openInNewTab = (url) => {

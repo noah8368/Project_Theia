@@ -151,6 +151,14 @@ form {
     margin: 20px;
   }
 
+  .delete button {
+    font-size: 10px;
+    border: solid;
+    border-width: thin;
+    border-color: grey;
+    border-radius: 5px;
+  }
+
 .favorite {
     order: 6;
     color: white;

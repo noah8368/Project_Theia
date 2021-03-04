@@ -6,6 +6,42 @@ body {
     align-items: center;
 }
 
+
+
+.loginForm {
+    border: solid;
+    border-color: white;
+    height: 175px;
+    width: 215px;
+}
+
+.loginInput{
+    width: 80%;
+    
+}
+
+input{
+    color:red;
+}
+
+h1{
+    margin-bottom:20%;
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70%;
+}
+
+
+.LoginButton:hover, .LoginButton:visited, .LoginButton:link, .LoginButton:active
+{
+    text-decoration: none;
+}
+
+
 .stockButton{
     font-family: 'Space Grotesk', sans-serif;
     background-color: black;
@@ -19,4 +55,10 @@ body {
     align-items: center;
     display: flex;
     justify-content: center;
+    
+}
+
+.stockButton:hover{
+    background-color:white;
+    color: black;
 }

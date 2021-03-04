@@ -5,15 +5,16 @@ import {Route, Switch,  BrowserRouter as Router, Link, Redirect} from 'react-rou
 
 
 //pages
-import MainPage from "./pages"
+import LoginPage from "./pages/index.js"
 import NotFoundPage from "./pages/404"
 import Home from './pages/Home.js';
+
 class App extends React.Component {
     render() {
         return (
             <Router>
                 <Switch>
-                    <Route exact path="/" component={MainPage}/>
+                    <Route exact path="/" component={LoginPage}/>
                     <Route exact path="/404" component={NotFoundPage}/>
                     <Route exact path="/Home" component={Home}/>
                     <Redirect to = "/404"/>

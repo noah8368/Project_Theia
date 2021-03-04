@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
 
 
-
-
-
-
-
-
 h1 {
     margin-top: 230px;
     font-family: 'Space Grotesk', sans-serif;;
@@ -28,7 +22,7 @@ form {
 
     font-family: 'Space Grotesk', sans-serif;
     /*transform: translate(-50%, -50%)*/
-  }
+  } 
 
   input[type=text]{
     background-color: rgb(163, 209, 288);
