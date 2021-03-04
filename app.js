@@ -119,6 +119,18 @@ app.get('/:username', (req, res) => {
     })
 });
 
+//posting profile
+app.post('/push', (req, res) => {
+    var newUser = new User(req.body);
+    newUser.save((err, doc) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(doc);
+        }
+    });
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/login");
