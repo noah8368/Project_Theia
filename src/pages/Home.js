@@ -1,8 +1,8 @@
 import React from 'react';
 import './Home.css';
 import {Link} from 'react-router-dom';
-import beach from '../components/beach.jpg';
 import axios from "axios";
+import screenshot from './screenshot.png';
 
 
 class LinkPair extends React.Component { 
@@ -20,18 +20,7 @@ class LinkPair extends React.Component {
         temorarily hard coded
         */
         return (
-        <div class="images">
-            { ((this.props.compare) ?
-                     <div class="sideBySide">
-                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="orig"/> 
-                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="new"/>
-                    </div> 
-                : 
-                   <div class="single">
-                    <img id="single" src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} /> 
-                  </div>
-            ) } 
-        </div>
+        <img id="single" src={screenshot} alt={"image"} />
         )
     }
 }
@@ -48,7 +37,10 @@ class Home extends React.Component {
         errors: null,
         isLoading: true,
         usrname: "example", //usrname and favorites temporarily hard coded
-        favorites: ["Loading..."]
+        favorites: ["Loading..."],
+        latitude: null,
+        longitude: null,
+        
     }
       this.handleChange = this.handleChange.bind(this); //**TODO: clean up handle/on change functions
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,6 +49,7 @@ class Home extends React.Component {
       this.removeFavorite = this.removeFavorite.bind(this); 
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
+      this.setCoords = this.setCoords.bind(this);
       
     }
     
@@ -89,13 +82,84 @@ class Home extends React.Component {
 
     }
 
+
+    setCoords(city) { // sets coordinates if location is selected
+        if(city == "LA"){
+            this.setState({
+                longitude: 34.05,
+                latitude: -118.25
+            });
+            return;
+        } else if (city == "Sydney"){
+            this.setState({
+                longitude: -33.8,
+                latitude: 151.2
+            });
+            return;
+        } else if (city == "London") {
+            this.setState({
+                longitude: 52.51,
+                latitude: -0.128
+            });
+        } else if (city == "Delhi") {
+            this.setState({
+                longitude: 28.71,
+                latitude: 77.11
+            });
+        } else if (city == "Shanghai") {
+            this.setState({
+                longitude: 31.23,
+                latitude: 121.47
+            });
+        } else if (city == "Tokyo") {
+            this.setState({
+                longitude: 35.68,
+                latitude: 139.65
+            });
+        } else if (city == "Cairo") {
+            this.setState({
+                longitude: 30.01,
+                latitude: 31.24
+            });
+        } else if (city == "Dubai") {
+            this.setState({
+                longitude: 25.21,
+                latitude: 55.27
+            });
+        } else if (city == "Moscow") {
+            this.setState({
+                longitude: 55.76,
+                latitude: 37.62
+            });
+        } else if (city == "Istanbul") {
+            this.setState({
+                longitude: 41.01,
+                latitude: 28.98
+            });
+        } else if (city == "Sao") {
+            this.setState({
+                longitude: -23.55,
+                latitude: -46.63
+            });
+        } else if (city == "Beijing") {
+            this.setState({
+                longitude: 39.91,
+                latitude: 116.41
+            });
+        } 
+
+    }
+  
     handleChange(event) { //updates state whenever user gives new input/value to something 
         const target = event.target;
         const name = target.name;
         const value = name == 'link' ? target.link : 
         name == "isFavorite" ? target.isFavorite : 
         name == 'showImage' ? target.isFavorite :
-        name == 'compare' ? target.compare : target.location;
+        name == 'compare' ? target.compare : 
+        name == "longitude" ? target.longitude :
+        name == "latitude" ? target.latitude :
+        target.location;
        
         this.setState({
             [name]: value
@@ -179,6 +243,7 @@ class Home extends React.Component {
         });
         event.preventDefault();
     }
+
   
     render() {
         /*
@@ -240,6 +305,7 @@ class Home extends React.Component {
                 </Link>  
             </div>
         <div class="space">
+            <div class="sideBar">
               <div class="navBar">
                 <div class="favs">
                     My Favorites
@@ -247,20 +313,38 @@ class Home extends React.Component {
                         {getFavorites}
                     </ul>
                   </div>
+                  <div class="fullDown">
                     <button className="download">
                         Download
                     </button>
                     <button className="fullscreen" onClick={() => openInNewTab('https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg')}>
                         Fullscreen
                     </button>
+                    </div>
               </div>
-              
+                <div class="locations">
+                    Locations
+                     <ul>
+                        <li><button onClick={(evt) => this.setCoords("LA")}>Los Angeles, US</button> </li>
+                        <li><button onClick={(evt) => this.setCoords("Sydney")}>Sydney, AU</button></li>
+                        <li><button onClick={(evt) => this.setCoords("London")}>London, UK</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Delhi")}>New Delhi, IN</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Shanghai")}>Shanghai, CN</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Tokyo")}>Tokyo, JP</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Cairo")}>Cairo, EG</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Dubai")}>Dubai, UAE</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Moscow")}>Moscow, RU</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Istanbul")}>Istanbul, TR</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Sao")}>Sao Paulo, BR</button></li>
+                        <li><button onClick={(evt) => this.setCoords("Beijing")}>Beijing, CN</button></li>
+                    </ul>
+                </div>
+              </div>
             <div class="mainPage"> 
                 <h1> 
                     Enter a link and location to view
                 </h1>
-                
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} class="frm">
                         <div class="options">
                             <input
                             name="link" 
@@ -269,37 +353,24 @@ class Home extends React.Component {
                             onChange={this.onChangeLink}
                             placeholder="Search the world..." />
                             <br/>
-                            <select
-                            name="location" 
-                            location={this.state.location} 
-                            onChange={(evt) => this.handleChange(evt)} 
-                            >
-                                <option location="Los Angeles, USA">Los Angeles, USA</option>
-                                <option location="Perth, AU">Perth, AU</option>
-                            </select>
+                            <label class="favorite">
+                                Add to Favorites?
+                                <input
+                                    name="isFavorite"
+                                    type="checkbox"
+                                    checked={this.state.isFavorite}
+                                    onChange={this.onChangeFav} />
+                    </label>
                         </div>
                     
                     <div class="sub">
                         <input type="submit" value="submit"/>
                     </div>
-                    <label class="favorite">
-                        Add to Favorites? 
-                        <input
-                            name="isFavorite"
-                            type="checkbox"
-                            checked={this.state.isFavorite}
-                            onChange={this.onChangeFav} />
+                    <label class="coords">
+                        <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={(evt) => this.handleChange(evt)}/>
+                        <input type="text" name="latitude" placeholder="Latitude" value={this.state.latitude} onChange={(evt) => this.handleChange(evt)}/>
                     </label>
                     
-                    <label class="switch">
-                        <input 
-                            name="compare"
-                            type="checkbox"
-                            checked={this.state.compare}
-                            onChange={this.onChangeComp}
-                        />
-                        <span class="slider round"></span>
-                    </label>
                     
                 </form>   
                 <div class="screenshot">
@@ -313,5 +384,8 @@ class Home extends React.Component {
       );
     }
   }
+
+
+
 
 export default Home;
