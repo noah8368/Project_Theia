@@ -62,6 +62,11 @@ class LoginPage extends React.Component {
                             Go to Home
                         </button> 
                     </Link>
+                    <Link className="loginButton" to ="/register">
+                    <button className="stockButton">
+                        Sign Up
+                    </button>    
+                    </Link>
                 </form>
             </div>
         );
