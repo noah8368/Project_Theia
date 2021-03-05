@@ -57,6 +57,7 @@ class Home extends React.Component {
       this.removeFavorite = this.removeFavorite.bind(this); 
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
+      
     }
     
     getData(){
@@ -210,16 +211,18 @@ class Home extends React.Component {
        const favorites = this.state.favorites;
        const getFavorites = favorites.map((value) => { //list of favorites as buttons
         return (
-            <li>
-            <div class="favslist">
-          <button onClick={(evt) => this.selectFav(value)}>{value}</button> 
-          <div class="delete">
-          <button onClick={(evt) => this.removeFavorite(value)}>Delete</button>
-          </div>
-          </div>
-        </li>
+          <li>
+              <div class="favslist">
+            <button onClick={(evt) => this.selectFav(value)}>{value}</button> 
+            <div class="delete">
+            <button onClick={(evt) => this.removeFavorite(value)}>Delete</button>
+            </div>
+            </div>
+          </li>
         );
       });
+
+
       const openInNewTab = (url) => {
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
@@ -247,7 +250,8 @@ class Home extends React.Component {
                     <button className="download">
                         Download
                     </button>
-                    <button className="fullscreen" onClick={() => openInNewTab('https://preview.redd.it/lfndtoirttvx.jpg?auto=webp&s=62fd5e471e310793ae18fc7573b649c134b23e92')}>
+                    <button className="fullscreen" onClick={() => openInNewTab('https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg')}>
+                        Fullscreen
                     </button>
               </div>
               
@@ -274,6 +278,7 @@ class Home extends React.Component {
                                 <option location="Perth, AU">Perth, AU</option>
                             </select>
                         </div>
+                    
                     <div class="sub">
                         <input type="submit" value="submit"/>
                     </div>
@@ -285,6 +290,7 @@ class Home extends React.Component {
                             checked={this.state.isFavorite}
                             onChange={this.onChangeFav} />
                     </label>
+                    
                     <label class="switch">
                         <input 
                             name="compare"
@@ -294,6 +300,7 @@ class Home extends React.Component {
                         />
                         <span class="slider round"></span>
                     </label>
+                    
                 </form>   
                 <div class="screenshot">
                     { (this.state.showImage)  ?
