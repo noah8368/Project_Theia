@@ -32,7 +32,7 @@ body {
 .navBar {
   background-color: black;
   color: white;
-  min-width: 9.7%;
+  min-width: 90%;
   border: solid white;
   border-radius: 15px;
   border-width: 0.3%;
@@ -238,15 +238,19 @@ form {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    width: 768px;
-    height: 432px;
+    width: 640px;
+    height: 480px;
+    max-width: 640px;
+    max-height: 432px;
     background-color:rgba(20,20,20,0.4);
 }
 
-.screenshot img {
 
- max-width: 700px;
- max-height: 300px;
+
+.screenshot img {
+ object-fit: fill;
+ min-width: 576px;
+ max-height: 432px;
 }
   
 .images {
@@ -257,25 +261,10 @@ form {
 
 .single {
   max-width: 700px;
-  object-fit: contain;
-}
-
-.sideBySide img {
-  margin: 4px;
-  object-fit: contain;
-  flex-shrink: -8;
-  max-width: 300px;
-  max-height: 100%;
+  object-fit: fill;
 }
 
 
-.sideBySide {
-  flex-shrink: 1;
-  max-width: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-}
 
   input {
     font-family: 'Space Grotesk', sans-serif;

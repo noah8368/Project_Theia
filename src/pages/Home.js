@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css';
 import {Link} from 'react-router-dom';
-import beach from '../components/beach.jpg';
+import screenshot from './screenshot.png';
 
 
 class LinkPair extends React.Component { 
@@ -19,18 +19,13 @@ class LinkPair extends React.Component {
         temorarily hard coded
         */
         return (
-        <div class="images">
-            { ((this.props.compare) ?
-                     <div class="sideBySide">
-                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="orig"/> 
-                        <img src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} id="new"/>
-                    </div> 
-                : 
-                   <div class="single">
-                    <img id="single" src="https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg" alt={"image"} /> 
-                  </div>
-            ) } 
-        </div>
+        
+            
+                   
+                    <img id="single" src={screenshot} alt={"image"} /> 
+               
+            
+      
         )
     }
 }
