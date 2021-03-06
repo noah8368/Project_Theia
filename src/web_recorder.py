@@ -1,42 +1,45 @@
+# Noah Himed
+# 5 March 2021
+# Define a class to load and screenshot a website with a spoofed geolocation
+
 import argparse
 from datetime import datetime
-from pathlib import Path
 import os
+from pathlib import Path
 from selenium.webdriver import Chrome, ChromeOptions
-import validators
 import socket
-import re
 import time
 from urllib.parse import urlparse
+import validators
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+# Raise an exception if given lattitude-longitude pair is invalid
+def validate_loc(lat, long):
+    lat_correct = -90 <= lat <= 90
+    long_correct = -180 <= long <= 180
+    if not (lat_correct and long_correct):
+        raise ValueError("Given location ("+ str(lat) +", "+ str(long) +") is invalid")
+
 
 class WebRecorder:
     def __init__(self, args):
-        if (validators.url(args.url)):
-            self.url = args.url
-        else:
+        # Raise an exception if the given URL is invalid
+        if not (validators.url(args.url)):
             raise ValueError("Given url \""+args.url+"\" is invalid")
+        self.url = args.url
 
         self.timing_load = args.load_time
         self.showing_ip = args.IP_address
 
+        # Set the file path to save the screenshot
         default_path = os.fspath(Path.cwd().parent / "screenshots")
         self.path = args.file_path if (args.file_path) else default_path
 
+        validate_loc(args.latitude, args.longitude)
         self.lat = args.latitude
         self.long = args.longitude
         self.acc = 100
     def takeScreenshot(self):
-        hostname = urlparse(self.url).hostname
-        now = datetime.now()
-        date_str = now.strftime("%Y-%m-%d_%H:%M:%S")
-        img_dir = Path(self.path)
-        img_file = hostname+'_'+date_str+".png"
-        img_path = os.fspath(img_dir / img_file)
-
+        # Set Chrome browser parameters and location
         chromeOpt = ChromeOptions()
         chromeOpt.add_argument("--headless")
         driver = Chrome(options=chromeOpt)
@@ -56,21 +59,29 @@ class WebRecorder:
             },
         )
 
+        # Load browser page
         print("Loading", self.url + "...")
         start_load_time = time.time()
         driver.get(self.url)
         end_load_time = time.time()
         driver.refresh()
         time.sleep(3)
+
+        # Save screenshot
+        img_dir = Path(self.path)
+        img_path = os.fspath(img_dir / "screenshot.png")
         driver.get_screenshot_as_file(img_path)
         driver.quit()
 
         print("Location: ("+str(self.lat)+", "+str(self.long)+')')
         print("Saved view to", img_path)
+
+        # Print out optional output if -t or -i flags are given
         if self.timing_load:
             exec_time = round(end_load_time - start_load_time, 2)
             print("Load time:", str(exec_time) + 's')
         if self.showing_ip:
+            hostname = urlparse(self.url).hostname
             ip = socket.gethostbyname(hostname)
             print("IP Address:", ip)
 
