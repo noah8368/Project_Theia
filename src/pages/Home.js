@@ -5,22 +5,23 @@ import axios from "axios";
 import screenshot from './screenshot.png';
 
 
-class LinkPair extends React.Component { 
+class LinkPair extends React.Component {  //Link pair will be used to communicate to backend
     constructor(props) {
         super(props);
         this.state = {
             link: this.props.link,
-            location: this.props.location,
+            longitude: this.props.longitude,
+            latitude: this.props.latitude,
         };
     }
 
     render(){
-        /*will pass link and location and return screenshot from backend
-        if comparing location of first = current location
-        temorarily hard coded
+        /*
+        will pass link and location and return screenshot from backend
+        make call to backend here
         */
-        return (
-        <img id="single" src={screenshot} alt={"image"} />
+        return (        
+                    <img id="single" src={screenshot} alt={"image"} /> 
         )
     }
 }
@@ -30,7 +31,6 @@ class Home extends React.Component {
       super(props);
       this.state = {
         link: '', 
-        location: 'Los Angeles, USA', 
         isFavorite: false, 
         showImage: false, 
         compare: false,
@@ -45,12 +45,10 @@ class Home extends React.Component {
       this.handleChange = this.handleChange.bind(this); //**TODO: clean up handle/on change functions
       this.handleSubmit = this.handleSubmit.bind(this);
       this.onChangeFav =  this.onChangeFav.bind(this);
-      this.onChangeComp = this.onChangeComp.bind(this);
       this.removeFavorite = this.removeFavorite.bind(this); 
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
-      this.setCoords = this.setCoords.bind(this);
-      
+      this.setCoords = this.setCoords.bind(this);   
     }
     
     getData(){
@@ -156,15 +154,13 @@ class Home extends React.Component {
         const value = name == 'link' ? target.link : 
         name == "isFavorite" ? target.isFavorite : 
         name == 'showImage' ? target.isFavorite :
-        name == 'compare' ? target.compare : 
         name == "longitude" ? target.longitude :
         name == "latitude" ? target.latitude :
         target.location;
        
         this.setState({
             [name]: value
-        });    
-        
+        });          
     }
 
     selectFav(value) { //when favorite is selected, set that val as the link
@@ -175,27 +171,10 @@ class Home extends React.Component {
 
     onChangeFav(event) { // toggles isFavorite state when checked/unchecked
         this.setState({
-            link: this.state.link,
-            location: this.state.location,
             isFavorite: event.target.checked,
-            showImage: this.state.showImage,
-            compare: this.state.compare,
-            usrname: this.state.usrname,
-            favorites: this.state.favorites,
         });
     }
 
-    onChangeComp(event) { // toggles compare state when checked/unchecked
-        this.setState({
-            link: this.state.link,
-            location: this.state.location,
-            isFavorite: this.state.isFavorite,
-            showImage: this.state.showImage,
-            compare: event.target.checked,
-            usr: this.state.usr,
-            favorites: this.state.favorites,
-        });
-    }
 
     onChangeLink(event) { //sets link when inputted 
         this.setState({
@@ -217,12 +196,6 @@ class Home extends React.Component {
             favoritesCopy.splice(index, 1);
           }
         this.setState({
-            link: this.state.link,
-            location: this.state.location,
-            isFavorite: this.state.isFavorite,
-            showImage: this.state.showImage,
-            compare: this.state.compare,
-            usrname: this.state.usrname,
             favorites: favoritesCopy
         })
     }
@@ -234,11 +207,7 @@ class Home extends React.Component {
             this.postData(this.state.favorites);
         }
         this.setState({
-            link: this.state.link,
-            location: this.state.location,
-            isFavorite: this.state.isFavorite,
             showImage: true,
-            compare: this.state.compare,
             favorites: favoritesCopy,
         });
         event.preventDefault();
@@ -246,8 +215,8 @@ class Home extends React.Component {
 
   
     render() {
-        /*
-        all class: containes everyhting
+        /* all classes below for only CSS styling purposes
+        all class: containes everything
 
         topBar class: the top display bar, has signout button and will display
                        user's name (temporarily word 'USERNAME')
@@ -263,11 +232,13 @@ class Home extends React.Component {
         form: includes location dropdown, link input box, favorite and comparison
               checkboxes
 
+        fullDown: inclused fullscreen and download buttons
+
         options class: location dropdown, link input box
 
         sub class: submit button
 
-        switch class: **TO BE RENAMED** checkbox toggle for comparison mode
+        coords: has longitude and laditude boxes
 
         screenshot class: displays image, 1 if comparison is off, 2 images if on
                           currently hardcoded image from beach.jpg, to be changed
@@ -304,7 +275,7 @@ class Home extends React.Component {
                     </button>
                 </Link>  
             </div>
-        <div class="space">
+        <div class="below">
             <div class="sideBar">
               <div class="navBar">
                 <div class="favs">
@@ -351,7 +322,7 @@ class Home extends React.Component {
                             value={this.state.link}
                             type="text"  
                             onChange={this.onChangeLink}
-                            placeholder="Search the world..." />
+                            placeholder="Search the world..."/>
                             <br/>
                             <label class="favorite">
                                 Add to Favorites?
@@ -361,8 +332,7 @@ class Home extends React.Component {
                                     checked={this.state.isFavorite}
                                     onChange={this.onChangeFav} />
                     </label>
-                        </div>
-                    
+                        </div>                   
                     <div class="sub">
                         <input type="submit" value="submit"/>
                     </div>
@@ -370,12 +340,10 @@ class Home extends React.Component {
                         <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={(evt) => this.handleChange(evt)}/>
                         <input type="text" name="latitude" placeholder="Latitude" value={this.state.latitude} onChange={(evt) => this.handleChange(evt)}/>
                     </label>
-                    
-                    
-                </form>   
+                        </form>   
                 <div class="screenshot">
                     { (this.state.showImage)  ?
-                            <LinkPair compare={this.state.compare} link={this.state.link} location={this.state.location}/>
+                            <LinkPair link={this.state.link} longitude={this.state.longitude} laditude={this.state.latitude}/>
                             : null } 
                 </div> 
             </div>

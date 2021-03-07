@@ -22,7 +22,7 @@ body {
   max-width: 100%;
 }
 
-.space {
+.below {
   display: flex;
   justify-items: center;
   min-width: 100vw;
