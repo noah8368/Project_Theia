@@ -10,3 +10,9 @@ screenshots
 
 # Firefox driver error log for Selenium library
 geckodriver.log
+# Don't track the following
+.DS_Store
+**node_modules
+*/node_modules/*
+/node_Modules
+node_modules/

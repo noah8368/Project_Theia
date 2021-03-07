@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+
+  body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    /* the background image */
+    background-image: url(https://cdn.pixabay.com/photo/2016/01/19/17/29/earth-1149733__480.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100vh; 
+    width: 100vw;
+    background-position: center; 
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.all {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.below {
+  display: flex;
+  justify-items: center;
+  min-width: 100vw;
+  max-height: 94vh;
+}
+
+.navBar {
+  background-color: black;
+  color: white;
+  min-width: 90%;
+  border: solid white;
+  border-radius: 15px;
+  border-width: 0.3%;
+  height: 50%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  
+
+}
+
+.navBar ul {
+  list-style-type: circle;
+}
+
+.navBar li {
+  margin: 5px;
+}
+
+.locations {
+  background-color: black;
+  color: white;
+  min-width: 90%;
+  border: solid white;
+  border-radius: 15px;
+  border-width: 0.3%;
+  padding: 4px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 7px;
+  max-height: 46%;
+  font-size: 14px;
+  
+}
+
+.locations ul {
+  list-style-type: circle;
+}
+
+.locations button {
+  background-color: rgba(20,20,20,0.4);
+  color: white;
+  border: solid white;
+  border-width: thin;
+  border-radius: 5px;
+  margin: 4px;
+}
+
+
+
+.topBar {
+  border: solid white;
+  border-radius: 15px;
+  margin: 5px;
+  border-width: 0.5vh;
+  width: 98%;
+  background-position: center;;
+  height: 4vh;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+}
+
+
+
+.logout {
+  margin: 9px;
+  background-color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 5px;
+}
+
+
+.fullscreen, .download {
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(50, 50, 50);
+  color: rgb(220, 220, 220);
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 3px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+ul {
+height:200px; 
+overflow:hidden; 
+overflow-y:scroll;
+}
+
+
+
+.favs button {
+  background-color: rgba(20,20,20,0.4);
+  color: white;
+  border: none;
+}
+
+.favs {
+  height: 70%;
+}
+
+
+
+.mainPage {
+  min-width: 90%;
+  min-height: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
+  align-content: center;
+}
+
+.options {
+  order: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+
+
+
+.sub {
+  order: 5;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+
+
+h1 {
+    order: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: white;
+}
+
+form {
+    width: 50%;
+    max-height: 20%;
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    align-items: center;  
+    justify-content: flex-start;
+    /*background-color: rgba(255,255,255,0.5);*/
+    border: solid;
+    border-color: white;
+    border-radius: 16px;
+    margin: 10px;
+  }
+
+  .frm {
+    max-height: 30%;
+  }
+
+  input[type=text]{
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    margin: 6px;
+  
+  }
+
+  .delete button {
+    font-size: 10px;
+    border: solid;
+    border-width: thin;
+    border-color: grey;
+    border-radius: 5px;
+  }
+
+.favorite {
+    order: 4;
+    color: grey;
+    background-color: black;
+    border-radius: 8px;
+    margin: 5px;
+    
+    display: block;
+    float: below;
+    
+    padding: 7px;
+    
+  }
+
+.delete button {
+  font-size: 10px;
+  border: solid;
+  border-width: thin;
+  border-color: grey;
+  border-radius: 5px;
+}
+
+.screenshot {
+    
+    order: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 640px;
+    height: 480px;
+    max-width: 640px;
+    max-height: 432px;
+    background-color:rgba(20,20,20,0.4);
+}
+
+
+
+.screenshot img {
+ object-fit: fill;
+ min-width: 576px;
+ max-height: 432px;
+}
+  
+.images {
+  max-width: 700px;
+  object-fit: contain;
+    
+}
+
+.single {
+  max-width: 700px;
+  object-fit: fill;
+}
+
+
+
+  input {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: black;
+    border: white;
+    color: white;
+    padding: 7px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  select {
+      border-radius: 5px;
+      margin: 20px;
+      padding: 10px;
+      background-color: black;
+      color: whitesmoke;
+      left: 20px;
+  }
+
+  input[type=checkbox] {
+        color: black;
+  }
+
+  /* The switch - the box around the slider */
