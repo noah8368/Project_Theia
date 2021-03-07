@@ -82,64 +82,64 @@ class Home extends React.Component {
 
 
     setCoords(city) { // sets coordinates if location is selected
-        if(city == "LA"){
+        if(city === "LA"){
             this.setState({
                 longitude: 34.05,
                 latitude: -118.25
             });
             return;
-        } else if (city == "Sydney"){
+        } else if (city === "Sydney"){
             this.setState({
                 longitude: -33.8,
                 latitude: 151.2
             });
             return;
-        } else if (city == "London") {
+        } else if (city === "London") {
             this.setState({
                 longitude: 52.51,
                 latitude: -0.128
             });
-        } else if (city == "Delhi") {
+        } else if (city === "Delhi") {
             this.setState({
                 longitude: 28.71,
                 latitude: 77.11
             });
-        } else if (city == "Shanghai") {
+        } else if (city === "Shanghai") {
             this.setState({
                 longitude: 31.23,
                 latitude: 121.47
             });
-        } else if (city == "Tokyo") {
+        } else if (city === "Tokyo") {
             this.setState({
                 longitude: 35.68,
                 latitude: 139.65
             });
-        } else if (city == "Cairo") {
+        } else if (city === "Cairo") {
             this.setState({
                 longitude: 30.01,
                 latitude: 31.24
             });
-        } else if (city == "Dubai") {
+        } else if (city === "Dubai") {
             this.setState({
                 longitude: 25.21,
                 latitude: 55.27
             });
-        } else if (city == "Moscow") {
+        } else if (city === "Moscow") {
             this.setState({
                 longitude: 55.76,
                 latitude: 37.62
             });
-        } else if (city == "Istanbul") {
+        } else if (city === "Istanbul") {
             this.setState({
                 longitude: 41.01,
                 latitude: 28.98
             });
-        } else if (city == "Sao") {
+        } else if (city === "Sao") {
             this.setState({
                 longitude: -23.55,
                 latitude: -46.63
             });
-        } else if (city == "Beijing") {
+        } else if (city === "Beijing") {
             this.setState({
                 longitude: 39.91,
                 latitude: 116.41
@@ -151,11 +151,11 @@ class Home extends React.Component {
     handleChange(event) { //updates state whenever user gives new input/value to something 
         const target = event.target;
         const name = target.name;
-        const value = name == 'link' ? target.link : 
-        name == "isFavorite" ? target.isFavorite : 
-        name == 'showImage' ? target.isFavorite :
-        name == "longitude" ? target.longitude :
-        name == "latitude" ? target.latitude :
+        const value = name === 'link' ? target.link : 
+        name === "isFavorite" ? target.isFavorite : 
+        name === 'showImage' ? target.isFavorite :
+        name === "longitude" ? target.longitude :
+        name === "latitude" ? target.latitude :
         target.location;
        
         this.setState({
