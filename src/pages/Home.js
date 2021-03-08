@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.css';
 import {Link} from 'react-router-dom';
 import axios from "axios";
-import screenshot from './screenshot.png';
+import screenshot from '../screenshots/screenshot.png';
 
 
 class LinkPair extends React.Component {  //Link pair will be used to communicate to backend
