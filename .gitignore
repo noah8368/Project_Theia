@@ -2,9 +2,8 @@
 .DS_Store
 node_modules/
 # Sample program outputs
-
-screenshots
-
+#screenshots
+screenshot.png
 # Emacs backup files
 *~
 
