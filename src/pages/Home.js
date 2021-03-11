@@ -70,6 +70,7 @@ class Home extends React.Component {
 
     postData(list){
         axios.post('http://localhost:8000/push', {
+            username: this.state.usrname,
             favorites: list
         })
         .then(res => {
@@ -87,65 +88,65 @@ class Home extends React.Component {
     setCoords(city) { // sets coordinates if location is selected
         if(city === "LA"){
             this.setState({
-                longitude: 34.05,
-                latitude: -118.25
+                latitude: 34.05,
+                longitude: -118.25
             });
             return;
         } else if (city === "Sydney"){
             this.setState({
-                longitude: -33.8,
-                latitude: 151.2
+                latitude: -33.8,
+                longitude: 151.2
             });
             return;
         } else if (city === "London") {
             this.setState({
-                longitude: 52.51,
-                latitude: -0.128
+                latitude: 52.51,
+                longitude: -0.128
             });
         } else if (city === "Delhi") {
             this.setState({
-                longitude: 28.71,
-                latitude: 77.11
+                latitude: 28.71,
+                longitude: 77.11
             });
         } else if (city === "Shanghai") {
             this.setState({
-                longitude: 31.23,
-                latitude: 121.47
+                latitude: 31.23,
+                longitude: 121.47
             });
         } else if (city === "Tokyo") {
             this.setState({
-                longitude: 35.68,
-                latitude: 139.65
+                latitude: 35.68,
+                longitude: 139.65
             });
         } else if (city === "Cairo") {
             this.setState({
-                longitude: 30.01,
-                latitude: 31.24
+                latitude: 30.01,
+                longitude: 31.24
             });
         } else if (city === "Dubai") {
             this.setState({
-                longitude: 25.21,
-                latitude: 55.27
+                latitude: 25.21,
+                longitude: 55.27
             });
         } else if (city === "Moscow") {
             this.setState({
-                longitude: 55.76,
-                latitude: 37.62
+                latitude: 55.76,
+                longitude: 37.62
             });
         } else if (city === "Istanbul") {
             this.setState({
-                longitude: 41.01,
-                latitude: 28.98
+                latitude: 41.01,
+                longitude: 28.98
             });
         } else if (city === "Sao") {
             this.setState({
-                longitude: -23.55,
-                latitude: -46.63
+                latitude: -23.55,
+                longitude: -46.63
             });
         } else if (city === "Beijing") {
             this.setState({
-                longitude: 39.91,
-                latitude: 116.41
+                latitude: 39.91,
+                longitude: 116.41
             });
         } 
 
@@ -193,7 +194,7 @@ class Home extends React.Component {
 
 
 
-    removeFavorite(link) { //removes favorite, button for this not yet implemented
+    removeFavorite(link) { //removes favorite, button for this IS implemented
         let favoritesCopy = this.state.favorites;
         const index = favoritesCopy.indexOf(link);
         if (index > -1) {
@@ -202,6 +203,7 @@ class Home extends React.Component {
         this.setState({
             favorites: favoritesCopy
         })
+        this.postData(this.state.favorites)
     }
 
     handleSubmit(event){ // shows image once form is submitted
@@ -219,6 +221,7 @@ class Home extends React.Component {
             favoritesCopy.push(this.state.link); //add entered link to favorites
             this.postData(this.state.favorites);
         }
+        this.postData(this.state.favorites);
         this.setState({
             showImage: true,
             favorites: favoritesCopy,
@@ -350,8 +353,8 @@ class Home extends React.Component {
                         <input type="submit" value="submit"/>
                     </div>
                     <label class="coords">
-                        <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={this.onChangeLong}/>
                         <input type="text" name="latitude" placeholder="Latitude" value={this.state.latitude} onChange={this.onChangeLat}/>
+                        <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={this.onChangeLong}/>
                     </label>
                         </form>   
                 <div class="screenshot">

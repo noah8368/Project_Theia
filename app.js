@@ -122,7 +122,26 @@ app.get('/user/:username', (req, res) => {
 
 //getting profile
 app.post('/push', (req, res) => {
+    console.log(req.body.username);
     console.log(req.body.favorites);
+    User.findOne({username: req.body.username}).
+    then((user) => {
+        if (!user) {
+            res.send({
+                msg: "User not found!"
+            });
+            return {msg: "No user with this username was found."}
+        }
+        else {
+            User.update({username: req.body.username}, {
+                username: req.body.username,
+                favorites: req.body.favorites,
+            }, function(err, doc) {
+                console.log(err)
+            })
+            console.log(user);
+        }
+    })
 });
 
 //getting python script arguments
@@ -138,11 +157,16 @@ app.post('/pyargs', (req, res) => {
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ... ');
         dataToSend = data.toString();
+        console.log(dataToSend);
     })
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
         res.send("done")
     });
+});
+
+app.get('py', (req, res) => {
+    
 });
 
 function isLoggedIn(req, res, next) {
