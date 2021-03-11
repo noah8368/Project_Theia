@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.css';
 import {Link} from 'react-router-dom';
 import axios from "axios";
-import screenshot from '../screenshots/default_screenshot.png';
+import screenshot from '../screenshots/screenshot.png';
 
 
 class LinkPair extends React.Component {  //Link pair will be used to communicate to backend
@@ -16,7 +16,7 @@ class LinkPair extends React.Component {  //Link pair will be used to communicat
     }
 
     render(){
-        console.log(this.state.link)
+        console.log("Home.js render()")
         console.log(this.state.longitude)
         console.log(this.state.latitude)
         axios.post('http://localhost:8000/pyargs', {
@@ -321,9 +321,9 @@ class Home extends React.Component {
                 </div>
               </div>
             <div class="mainPage"> 
-                <h1> 
+                {/*<h1> 
                     Enter a link and location to view
-                </h1>
+                </h1>*/}
                 <form onSubmit={this.handleSubmit} class="frm">
                         <div class="options">
                             <input
