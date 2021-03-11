@@ -49,7 +49,8 @@ class Home extends React.Component {
         longitude: null,
         
     }
-      this.handleChange = this.handleChange.bind(this); //**TODO: clean up handle/on change functions
+      this.onChangeLat = this.onChangeLat.bind(this);
+      this.onChangeLong = this.onChangeLong.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.onChangeFav =  this.onChangeFav.bind(this);
       this.removeFavorite = this.removeFavorite.bind(this); 
@@ -156,21 +157,7 @@ class Home extends React.Component {
         } 
 
     }
-  
-    handleChange(event) { //updates state whenever user gives new input/value to something 
-        const target = event.target;
-        const name = target.name;
-        const value = name === 'link' ? target.link : 
-        name === "isFavorite" ? target.isFavorite : 
-        name === 'showImage' ? target.isFavorite :
-        name === "longitude" ? event.target.longitude :
-        name === "latitude" ? event.target.latitude :
-        target.location;
-       
-        this.setState({
-            [name]: value
-        });          
-    }
+ 
 
     selectFav(value) { //when favorite is selected, set that val as the link
         this.setState({
@@ -196,6 +183,19 @@ class Home extends React.Component {
             favorites: this.state.favorites,
         });
     }
+    
+    onChangeLong(event) {
+        this.setState({
+            longitude: event.target.value
+        });
+    }
+
+    onChangeLat(event) {
+        this.setState({
+            latitude: event.target.value
+        });
+    }
+
 
 
     removeFavorite(link) { //removes favorite, button for this not yet implemented
@@ -346,8 +346,8 @@ class Home extends React.Component {
                         <input type="submit" value="submit"/>
                     </div>
                     <label class="coords">
-                        <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={(evt) => this.handleChange(evt)}/>
-                        <input type="text" name="latitude" placeholder="Latitude" value={this.state.latitude} onChange={(evt) => this.handleChange(evt)}/>
+                        <input name="longitude" type="text" placeholder="Longitude" value={this.state.longitude} onChange={this.onChangeLong}/>
+                        <input type="text" name="latitude" placeholder="Latitude" value={this.state.latitude} onChange={this.onChangeLat}/>
                     </label>
                         </form>   
                 <div class="screenshot">
