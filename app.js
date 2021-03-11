@@ -10,8 +10,6 @@ var express = require("express"),
 
 const { spawn } = require('child_process');
 
-var url = "";
-
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -133,21 +131,19 @@ app.post('/pyargs', (req, res) => {
     console.log(req.body.longitude);
     console.log(req.body.latitude);
     url = req.body.link;
-});
-
-//triggering python script
-app.get('/py', (req, res) => {
+    long = req.body.longitude;
+    lat = req.body.latitude;
     var dataToSend;
-    const python = spawn('python3', ['src/web_recorder.py',url,'3','3']);
+    const python = spawn('python3', ['src/web_recorder.py',url,lat,long]);
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ... ');
         dataToSend = data.toString();
     })
     python.on('close', (code) => {
         console.log(`child process close all stdio with code ${code}`);
-        res.send(dataToSend)
+        res.send("done")
     });
-})
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();

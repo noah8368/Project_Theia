@@ -3,6 +3,7 @@ import './Home.css';
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import screenshot from '../screenshots/screenshot.png';
+import default_screenshot from '../screenshots/default_screenshot.png'
 
 
 class LinkPair extends React.Component {  //Link pair will be used to communicate to backend
@@ -19,14 +20,6 @@ class LinkPair extends React.Component {  //Link pair will be used to communicat
         console.log("Home.js render()")
         console.log(this.state.longitude)
         console.log(this.state.latitude)
-        axios.post('http://localhost:8000/pyargs', {
-            link: this.state.link,
-            longitude: this.state.longitude,
-            latitude: this.state.latitude
-        })
-        .then(res => {
-            console.log(res)
-        })
         return (        
                     <img id="single" src={screenshot} alt={"image"} /> 
         )
@@ -62,7 +55,7 @@ class Home extends React.Component {
     getData(){
         axios
 
-            .get("http://localhost:8000/".concat(this.props.location.state[0].username)) //taking input from login Page
+            .get("http://localhost:8000/user/".concat(this.props.location.state[0].username)) //taking input from login Page
             .then(response=>{
                 console.log(response);
                     this.setState({
@@ -186,14 +179,16 @@ class Home extends React.Component {
     
     onChangeLong(event) {
         this.setState({
-            longitude: event.target.value
+            longitude: event.target.value,
         });
+        console.log(this.state.longitude);
     }
 
     onChangeLat(event) {
         this.setState({
-            latitude: event.target.value
+            latitude: event.target.value,
         });
+        console.log(this.state.latitude);
     }
 
 
@@ -210,6 +205,15 @@ class Home extends React.Component {
     }
 
     handleSubmit(event){ // shows image once form is submitted
+        alert("Please wait a few seconds while your image gets pat down by the TSA")
+        axios.post('http://localhost:8000/pyargs', {
+            link: this.state.link,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
+        })
+        .then(res => {
+            console.log(res);
+        })
         const favoritesCopy  = this.state.favorites;
         if(this.state.isFavorite) {
             favoritesCopy.push(this.state.link); //add entered link to favorites
@@ -351,9 +355,7 @@ class Home extends React.Component {
                     </label>
                         </form>   
                 <div class="screenshot">
-                    { (this.state.showImage)  ?
-                            <LinkPair link={this.state.link} longitude={this.state.longitude} laditude={this.state.latitude}/>
-                            : null } 
+                    { <LinkPair link={this.state.link} longitude={this.state.longitude} latitude={this.state.latitude}/> } 
                 </div> 
             </div>
             </div>
