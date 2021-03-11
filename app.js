@@ -8,9 +8,9 @@ var express = require("express"),
     User = require("./models/user");
     router=express.Router();
 
-const { spawn } = require('child_process')
+const { spawn } = require('child_process');
 
-
+var url = "";
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -127,10 +127,18 @@ app.post('/push', (req, res) => {
     console.log(req.body.favorites);
 });
 
+//getting python script arguments
+app.post('/pyargs', (req, res) => {
+    console.log(req.body.link);
+    console.log(req.body.longitude);
+    console.log(req.body.latitude);
+    url = req.body.link;
+});
+
 //triggering python script
 app.get('/py', (req, res) => {
     var dataToSend;
-    const python = spawn('python3', ['src/web_recorder.py','https://www.google.com','3','3']);
+    const python = spawn('python3', ['src/web_recorder.py',url,'3','3']);
     python.stdout.on('data', function (data) {
         console.log('Pipe data from python script ... ');
         dataToSend = data.toString();

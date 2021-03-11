@@ -16,10 +16,17 @@ class LinkPair extends React.Component {  //Link pair will be used to communicat
     }
 
     render(){
-        /*
-        will pass link and location and return screenshot from backend
-        make call to backend here
-        */
+        console.log(this.state.link)
+        console.log(this.state.longitude)
+        console.log(this.state.latitude)
+        axios.post('http://localhost:8000/pyargs', {
+            link: this.state.link,
+            longitude: this.state.longitude,
+            latitude: this.state.latitude
+        })
+        .then(res => {
+            console.log(res)
+        })
         return (        
                     <img id="single" src={screenshot} alt={"image"} /> 
         )
@@ -156,8 +163,8 @@ class Home extends React.Component {
         const value = name === 'link' ? target.link : 
         name === "isFavorite" ? target.isFavorite : 
         name === 'showImage' ? target.isFavorite :
-        name === "longitude" ? target.longitude :
-        name === "latitude" ? target.latitude :
+        name === "longitude" ? event.target.longitude :
+        name === "latitude" ? event.target.latitude :
         target.location;
        
         this.setState({
