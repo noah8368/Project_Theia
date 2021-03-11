@@ -8,6 +8,8 @@ var express = require("express"),
     User = require("./models/user");
     router=express.Router();
 
+const { spawn } = require('child_process')
+
 
 
 mongoose.set('useNewUrlParser', true);
@@ -19,6 +21,7 @@ mongoose.connect("mongodb+srv://front-end:la0frxQ4SqmDv6lS@hercules.zn3hs.mongod
 var app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(require("express-session")({
     secret: "Rusty is a dog",
@@ -100,7 +103,7 @@ app.get("/logout", function (req, res) {
 });
 
 //displaying profile
-app.get('/:username', (req, res) => {
+app.get('/user/:username', (req, res) => {
     User.findOne({username: req.params.username}).
     then((user) => {
         if (!user) {
@@ -119,17 +122,24 @@ app.get('/:username', (req, res) => {
     })
 });
 
-//posting profile
+//getting profile
 app.post('/push', (req, res) => {
-    var newUser = new User(req.body);
-    newUser.save((err, doc) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.send(doc);
-        }
-    });
+    console.log(req.body.favorites);
 });
+
+//triggering python script
+app.get('/py', (req, res) => {
+    var dataToSend;
+    const python = spawn('python3', ['src/web_recorder.py','https://www.google.com','3','3']);
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ... ');
+        dataToSend = data.toString();
+    })
+    python.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+        res.send(dataToSend)
+    });
+})
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
