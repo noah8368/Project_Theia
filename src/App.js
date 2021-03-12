@@ -9,6 +9,7 @@ import LoginPage from "./pages/index.js"
 import NotFoundPage from "./pages/404"
 import Home from './pages/Home.js';
 import RegisterPage from "./pages/register.js"
+import FullScreen from "./pages/FullScreen.js"
 
 class App extends React.Component {
     render() {
@@ -19,6 +20,7 @@ class App extends React.Component {
                     <Route exact path="/register" component={RegisterPage}/>
                     <Route exact path="/404" component={NotFoundPage}/>
                     <Route exact path="/Home" component={Home}/>
+                    <Route exact path="FullScreen" component={FullScreen} />
                     <Redirect to = "/404"/>
                 </Switch>
             </Router>

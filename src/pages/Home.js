@@ -235,9 +235,9 @@ class Home extends React.Component {
         all class: containes everything
 
         topBar class: the top display bar, has signout button and will display
-                       user's name (temporarily word 'USERNAME')
+                       user's name 
 
-        space class: **TO BE RENAMED** includes everything except top bar
+        below class: **TO BE RENAMED** includes everything except top bar
 
         navBar class: side display bar, includes scrollable list of favorites
                       (currently hard coded), fullscreen button, and download
@@ -256,8 +256,7 @@ class Home extends React.Component {
 
         coords: has longitude and laditude boxes
 
-        screenshot class: displays image, 1 if comparison is off, 2 images if on
-                          currently hardcoded image from beach.jpg, to be changed
+        screenshot class: displays image
         */
        
        const favorites = this.state.favorites;
@@ -296,17 +295,18 @@ class Home extends React.Component {
               <div class="navBar">
                 <div class="favs">
                     My Favorites
+
                     <ul>
                         {getFavorites}
                     </ul>
                   </div>
                   <div class="fullDown">
-                    <button className="download">
-                        Download
-                    </button>
-                    <button className="fullscreen" onClick={() => openInNewTab('https://s3.amazonaws.com/cms.ipressroom.com/173/files/20198/5d72b4772cfac209ff04c634_Royce+Quad/Royce+Quad_hero.jpg')}>
-                        Fullscreen
-                    </button>
+                    <Link to = "/FullScreen" class="full" >
+                        <button className="fullscreen" >
+                            Fullscreen
+                        </button>
+                    </Link>  
+                
                     </div>
               </div>
                 <div class="locations">

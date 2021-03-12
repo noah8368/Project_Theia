@@ -113,7 +113,7 @@ body {
 }
 
 
-.fullscreen, .download {
+.fullscreen, .full {
   border: none;
   border-radius: 5px;
   background-color: rgb(50, 50, 50);
@@ -121,7 +121,7 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   padding: 3px;
   margin-bottom: 5px;
-  width: 100%;
+  min-width: 95%;
 }
 
 ul {
