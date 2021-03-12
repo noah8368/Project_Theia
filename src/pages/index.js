@@ -49,23 +49,12 @@ class LoginPage extends React.Component {
                         type="text"
                         onChange={this.onChangeUsr}
                         placeholder="Username" />
-                    <input class="loginInput"
-                        name="password" 
-                        value={this.state.password}
-                        type="password"
-                        onChange={this.onChangePasswrd}
-                        placeholder="Password" />
                     <Link className="loginButton" to ={{
                         pathname: "/Home",
                         state:[{username: this.state.usrname}]}}>
                         <button className="stockButton" type="submit">
                             Go to Home
                         </button> 
-                    </Link>
-                    <Link className="loginButton" to ="/register">
-                    <button className="stockButton">
-                        Sign Up
-                    </button>    
                     </Link>
                 </form>
             </div>
