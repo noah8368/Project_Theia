@@ -105,11 +105,21 @@ app.get('/user/:username', (req, res) => {
     User.findOne({username: req.params.username}).
     then((user) => {
         if (!user) {
-            res.send({
-                msg: "User not found!"
+            var username = req.params.username
+            var password = "password"
+            User.register(new User({ username: username, favorites: [ "https://www.google.com/" ] }),
+                    password, function (err, user) {
+                if (err) {
+                    console.log(err);
+                    return res.render("register");
+                }
+        
+                passport.authenticate("local")(
+                    req, res, function () {
+                    res.render("secret");
+                });
             });
-            return {msg: "No user with this username was found."}
-        }
+                }
         else {
             res.send({
                 username: user.username,
