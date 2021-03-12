@@ -20,7 +20,7 @@ class App extends React.Component {
                     <Route exact path="/register" component={RegisterPage}/>
                     <Route exact path="/404" component={NotFoundPage}/>
                     <Route exact path="/Home" component={Home}/>
-                    <Route exact path="FullScreen" component={FullScreen} />
+                    <Route exact path="/FullScreen" component={FullScreen} />
                     <Redirect to = "/404"/>
                 </Switch>
             </Router>

@@ -38,6 +38,7 @@ class Home extends React.Component {
         isLoading: true,
         usrname: "example", //usrname and favorites temporarily hard coded
         favorites: ["Loading..."],
+        filtered_fav: [],
         latitude: null,
         longitude: null,
         
@@ -49,9 +50,43 @@ class Home extends React.Component {
       this.removeFavorite = this.removeFavorite.bind(this); 
       this.onChangeLink = this.onChangeLink.bind(this);
       this.selectFav = this.selectFav.bind(this); 
-      this.setCoords = this.setCoords.bind(this);   
+      this.setCoords = this.setCoords.bind(this);  
+      this.handleSearch = this.handleSearch.bind(this); 
     }
     
+    handleSearch(e) {
+		// Variable to hold the original version of the list
+    let currentList = [];
+		// Variable to hold the filtered list before putting into state
+    let newList = [];
+
+		// If the search bar isn't empty
+    if (e.target.value !== "") {
+			// Assign the original list to currentList
+      currentList = this.state.favorites;
+
+			// Use .filter() to determine which items should be displayed
+			// based on the search terms
+      newList = currentList.filter(item => {
+				// change current item to lowercase
+        const lc = item.toLowerCase();
+				// change search term to lowercase
+        const filter = e.target.value.toLowerCase();
+				// check to see if the current list item includes the search term
+				// If it does, it will be added to newList. Using lowercase eliminates
+				// issues with capitalization in search terms and search content
+        return lc.includes(filter);
+      });
+    } else {
+			// If the search bar is empty, set newList to original task list
+      newList = this.state.favorites;
+    }
+		// Set the filtered state based on what our rules added to newList
+    this.setState({
+      filtered_fav: newList
+    });
+    }
+
     getData(){
         axios
 
@@ -62,6 +97,7 @@ class Home extends React.Component {
                         usrname: response.data.username,
                         isLoading: false,
                         favorites: response.data.favorites,
+                        filtered_fav: response.data.favorites,
                     });
             })
             .catch(error=>this.setState({error, isLoading: false}));  
@@ -201,7 +237,8 @@ class Home extends React.Component {
             favoritesCopy.splice(index, 1);
           }
         this.setState({
-            favorites: favoritesCopy
+            favorites: favoritesCopy,
+            filtered_fav: favoritesCopy
         })
         this.postData(this.state.favorites)
     }
@@ -225,6 +262,7 @@ class Home extends React.Component {
         this.setState({
             showImage: true,
             favorites: favoritesCopy,
+            filtered_fav: favoritesCopy
         });
         event.preventDefault();
     }
@@ -259,7 +297,7 @@ class Home extends React.Component {
         screenshot class: displays image
         */
        
-       const favorites = this.state.favorites;
+       const favorites = this.state.filtered_fav;
        const getFavorites = favorites.map((value) => { //list of favorites as buttons
         return (
           <li>
@@ -295,6 +333,7 @@ class Home extends React.Component {
               <div class="navBar">
                 <div class="favs">
                     My Favorites
+                    <input type="text" className="input" placeholder="Search..." onChange={this.handleSearch} />
 
                     <ul>
                         {getFavorites}

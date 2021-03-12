@@ -15,11 +15,11 @@ class FullScreen extends React.Component{
     render() {
         return(
             <div>
-            <Link to = "/Home" class="goBack">
+            {/*<Link to = "/Home" class="goBack">
                     <button  type="button" class="logout">
                         Go Back
                     </button>
-                </Link>  
+        </Link>  */}
             <img src={screenshot} alt="image"/>
             </div>
 
