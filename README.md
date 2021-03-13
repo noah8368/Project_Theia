@@ -35,13 +35,9 @@ chmod u+x setup.sh
 
 ## Usage
 
-To run the actual application for the first time, execute the following commands:
-```
-chmod u+x start.sh
-./start.sh
-```
-
-On subsequent runs, the software can be simply ran by executing `start.sh`.
+To start the application, run the script `start.sh`. To close the application,
+you must run the script `stop.sh` before running another instance of the app.
+Failing to do so will leave `Node.js` running in the background.
 
 ## Implementation
 

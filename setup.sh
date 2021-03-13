@@ -1,5 +1,5 @@
 #!/bin/bash
-cp src/screenshots/default_screenshot.png src/screenshots/screenshot.png
 npm install
-chmod u+x back-end.sh
-chmod u+x front-end.sh
+npm install pm2@latest -g
+chmod u+x start.sh
+chmod u+x stop.sh
