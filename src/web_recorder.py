@@ -33,9 +33,9 @@ class WebRecorder:
         # Set the file path to save the screenshot
         default_path = os.fspath(Path.cwd() / "src/screenshots")
         self.path = args.file_path if (args.file_path) else default_path
-        if not(os.path.exists(self.path)):  
+        if not(os.path.exists(self.path)):
             raise ValueError("Local screenshot path given is invalid: " + self.path)
-        
+
         validate_loc(args.latitude, args.longitude)
         self.lat = args.latitude
         self.long = args.longitude
